@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-                            <div class="col-xl-3 col-md-6 mb-4">
+                   <div class="row">
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Total Kategori</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php
-                                                echo mysqli_num_rows(mysqli_query($koneksi, 'SELECT * FROM kategori'));
-                                                ?>
-                                           </div>
+                                                Kategori</div>
+                                            <div class="h5 mb-0 font-weight-bold text-black-800"><?= mysqli_num_rows(mysqli_query($koneksi, 'SELECT * FROM kategori')); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -35,14 +25,10 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Total Buku</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php
-                                                echo mysqli_num_rows(mysqli_query($koneksi, 'SELECT * FROM buku'));
-                                                ?>
-                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-black-800"><?= mysqli_num_rows(mysqli_query($koneksi, 'SELECT * FROM buku')); ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fa-sharp-duotone fa-fa-solid fa-books"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -55,16 +41,11 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Ulasan
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ulasan
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                        <?php
-                                                       echo mysqli_num_rows(mysqli_query($koneksi, 'SELECT * FROM ulasan'));
-                                                        ?>
-                                                   
-                                                 </div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-black-800"><?= mysqli_num_rows(mysqli_query($koneksi, 'SELECT * FROM ulasan')); ?></div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
@@ -91,12 +72,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Total User</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php 
-                                            echo mysqli_num_rows(mysqli_query($koneksi, 'SELECT * FROM user')); 
-                                            ?>
-                                                
-                
-                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-black-800"><?= mysqli_num_rows(mysqli_query($koneksi, 'SELECT * FROM user')); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -105,28 +81,27 @@
                                 </div>
                             </div>
                         </div>
-
-                      <div class="card mb-4">
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td width="150"><strong>Nama</strong></td>
-                                    <td width="1"> : </td>
-                                    <td width="200"> <?= $_SESSION['user']['nama']; ?></td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>Level User</strong></td>
-                                    <td width="1"> : </td>
-                                    <td> <?= $_SESSION['user']['level']; ?></td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>Tanggal Login</strong></td>
-                                    <td width="1"> : </td>
-                                    <td> <?= date('d-m-Y') ;?></td>
-                                </tr>
-                            </table>
-                        </div>
                     </div>
-                        
-</body>
-</html>
+
+
+<div class="card mb-4">
+    <div class="card-body">
+        <table class="table table-bordered">
+            <tr>
+                <td width="150"><strong>Nama</strong></td>
+                <td width="1">:</td>
+                <td width="200"><?=  $_SESSION['user']['username']; ?></td>
+            </tr>
+            <tr>
+                <td width="150"><strong>Level User</strong></td>
+                <td width="1">:</td>
+                <td width="200"><?=  $_SESSION['user']['level']; ?></td>
+            </tr>
+            <tr>
+                <td width="150"><strong>Tanggal</strong></td>
+                <td width="1">:</td>
+                <td><?= date('d-m-y'); ?></td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,1 +1,1 @@
-<h1 class="m-4">Halaman Eror Atau Tidak Ditemukan 404</h1>
+<h1 class = "mt-4 text-center">404 - Halaman Tidak Ditemukan</h1>

@@ -1,8 +1,4 @@
-<!DOCTYPE html>
 <html lang="en">
-    <?php
-include 'koneksi.php'; 
-?>
 <head>
 
     <meta charset="utf-8">
@@ -11,7 +7,7 @@ include 'koneksi.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>PerpusDigital_Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,6 +17,7 @@ include 'koneksi.php';
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/custom-colors.css" rel="stylesheet">
 
 </head>
 
@@ -44,23 +41,24 @@ include 'koneksi.php';
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <?php
-                                    if (isset($_POST['login'])) {
-                                       $username = $_POST['username'];
-                                       $password = md5($_POST['password']);
-                                       
-                                        $data = mysqli_query($koneksi, "SELECT * FROM user WHERE
-                                        username = '$username' AND password='$password'");
-                                        $cek = mysqli_num_rows($data);
-                                        if ($cek > 0) {
-                                            $_SESSION ['user'] = mysqli_fetch_array($data);
-                                            echo '<script>alert("Login Berhasil");
-                                            location.href="index.php";</script>';
-                                        } else {
-                                            echo "<script>alert('Login Gagal');</script>";
-                                        }
-                                    }
-                                    ?>
+                                    include "koneksi.php";
+                                    if(isset($_POST['login'])) {
+                                        $username = $_POST['username'];
+                                        $password = md5($_POST['password']);
 
+                                        $data = mysqli_query($koneksi, "SELECT * FROM user
+                                        WHERE username = '$username' AND password='$password'");
+                                        $cek = mysqli_num_rows($data);
+                                        if($cek > 0){
+                                            $_SESSION['user'] = mysqli_fetch_array($data);
+                                            echo '<script> alert("Selamat Anda Berhasil Login");
+                                            location.href="index.php";</script>';
+                                        }else{
+                                            echo '<script> alert("Maaff Password atau username salah"); </script>';
+                                        }
+                                        
+                                        }
+                                    ?>
                                     <form method="POST" class="user">
                                         <div class="form-group">
                                             <input type="text" name="username" class="form-control form-control-user"
@@ -68,27 +66,22 @@ include 'koneksi.php';
                                                 placeholder="Enter Username...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" value="password" class="form-control form-control-user"
+                                            <input type="password" name="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        
                                         <button type="submit" name="login" value="login" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
-                                        
-                                    <!-- <div class="text-center">
+                                        </a>
+                                        <hr>
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="register.html">Create an Account!</a>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -5,6 +5,8 @@ if (!isset($_SESSION["user"])) {
 }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +27,7 @@ if (!isset($_SESSION["user"])) {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/custom-colors.css" rel="stylesheet">
 
 </head>
 
@@ -37,11 +40,11 @@ if (!isset($_SESSION["user"])) {
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-book-open"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">PERPUS DIGITALL <sup>14</sup></div>
+                <div class="sidebar-brand-text mx-3">Perpus Digital<sup>15</sup></div>
             </a>
 
             <!-- Divider -->
@@ -64,36 +67,37 @@ if (!isset($_SESSION["user"])) {
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="?page=peminjaman" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="?page=peminjaman">
                     <i class="fas fa-fw fa-user-tag"></i>
                     <span>Peminjaman</span>
                 </a>
 
-                <?php if ($_SESSION["user"]["level"] != "peminjam") : ?>
                 <li class="nav-item">
-                 <a class="nav-link collapsed" href="?page=kategori" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                 <a class="nav-link " href="?page=kategori">
                     <i class="fas fa-fw fa-bars"></i>
                     <span>Kategori</span>
                  </a>
                 </li>
-                <?php endif; ?>
+            
 
                 <li class="nav-item">
-                <a class="nav-link collapsed" href="?page=buku" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="?page=buku">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Buku</span>
                 </a>
 
                 <li class="nav-item">
-                <a class="nav-link collapsed" href="?page=ulasan" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="?page=ulasan">
                     <i class="fas fa-fw fa-comment"></i>
                     <span>Ulasan</span>
                 </a>
-                
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="buttons.html">Buttons</a>
+                        <a class="collapse-item" href="cards.html">Cards</a>
+                    </div>
+                </div>
             </li>
 
            
@@ -287,14 +291,14 @@ if (!isset($_SESSION["user"])) {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION["user"]["username"]; ?></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="profil.php">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -307,7 +311,7 @@ if (!isset($_SESSION["user"])) {
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="login.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -315,8 +319,7 @@ if (!isset($_SESSION["user"])) {
                         </li>
 
                     </ul>
-                    <!-- Logiut button -->
-                     <a class="btn btn-danger" href="logout.php">Logout</a>
+
 
                     </ul>
 
@@ -324,28 +327,40 @@ if (!isset($_SESSION["user"])) {
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid">          
 
-                    <!-- Page Heading -->
+                     <?php
+                            $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+                            if($page === 'home') : ?>
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-                        
-                        <!-- Earnings (Monthly) Card Example -->
- 
+                    <div>
+                        <span class="badge bg-success"><h1>
+    Selamat Datang, <?php echo $_SESSION["user"]["username"]; ?> 👋</h1></span>
+    <h2>Sebagai <?php echo $_SESSION["user"]["level"]; ?></h2>
                     </div>
+                    <div>
+                        <h1> <span class="badge bg-secondary"></span></h1>
+                    </div>
+                        <?php endif; ?>
 
+
+                    <!-- Content Row -->
+                            <?php 
+                            $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+                            if (file_exists($page . '.php')) {
+                                include $page . '.php';
+                            } else {
+                                include '404.php';
+                            }
+                        ?>
                     <!-- Content Row -->
 
                     <div class="row">
-                        <?php $page = isset($_GET['page']) ? $_GET['page'] : 'home';
-                         if (file_exists($page . '.php')) { include $page . '.php';
-                        } else { include '404.php'; } ?>
+
                         <!-- Area Chart -->
 
                         <!-- Pie Chart -->
@@ -354,7 +369,7 @@ if (!isset($_SESSION["user"])) {
 
                     <!-- Content Row -->
                     <div class="row">
-
+                    
                         <!-- Content Column -->
                         
 
@@ -379,7 +394,7 @@ if (!isset($_SESSION["user"])) {
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Your Website 2026</span>
                     </div>
                 </div>
             </footer>
