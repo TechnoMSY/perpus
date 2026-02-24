@@ -337,11 +337,39 @@ if (!isset($_SESSION["user"])) {
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
-                    <div>
-                        <span class="badge bg-success"><h1>
-    Selamat Datang, <?php echo $_SESSION["user"]["username"]; ?> 👋</h1></span>
-    <h2>Sebagai <?php echo $_SESSION["user"]["level"]; ?></h2>
-                    </div>
+                   <div class="welcome-box">
+    <h1>
+        Selamat Datang, <span class="nama-user"><?php echo $_SESSION['user']['username']; ?></span> 👋
+    </h1>
+    <h4>Sebagai <?php echo $_SESSION['user']['level']; ?></h4>
+    <p class="sub-text">Semoga harimu menyenangkan dan siap mengelola perpustakaan hari ini.</p>
+</div>
+
+<style>
+.welcome-box {
+    background: linear-gradient(135deg, #11dd4e, #00ff4c);
+    padding: 25px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.welcome-box h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.welcome-box .nama-user {
+    color: #fff176;
+}
+
+.sub-text {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+}
+</style>
                     <div>
                         <h1> <span class="badge bg-secondary"></span></h1>
                     </div>
