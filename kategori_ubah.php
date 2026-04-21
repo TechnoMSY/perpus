@@ -6,8 +6,8 @@
             <form action="" method="post">
                 <?php
                     $id = $_GET['id'];
-                    $current_query = mysqli_query($koneksi, "SELECT * FROM kategori WHERE id_kategori=$id");
-                    $current = mysqli_fetch_assoc($current_query);
+                    $dta_query = mysqli_query($koneksi, "SELECT * FROM kategori WHERE id_kategori=$id");
+                    $dta = mysqli_fetch_assoc($dta_query);
                     if(isset($_POST['submit'])) {
                         $kategori = strtolower($_POST['kategori']);
                         $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE LOWER(kategori)='$kategori' AND id_kategori != $id");
@@ -26,7 +26,7 @@
                 ?>
                 <div class="form-group mb-3">
                     <label for="kategori" class="font-weight-bold text-gray-800">Nama Kategori</label>
-                    <input type="text" name="kategori" id="kategori" class="form-control" placeholder="Masukkan nama kategori baru"  value="<?= htmlspecialchars ($current['kategori']); ?>" required>
+                    <input type="text" name="kategori" id="kategori" class="form-control" placeholder="Masukkan nama kategori baru"  value="<?= htmlspecialchars ($dta['kategori']); ?>" required>
                 </div>
                 <div class="form-group mb-0">
                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Simpan</button>
