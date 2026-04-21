@@ -57,7 +57,7 @@
                     <td><?=$no++; ?></td>
                     <td><?= $data['judul']; ?></td>
                     <td><?= $data['nama_kategori'] ?></td>
-                     <td><img src="assets/img/<?= $data['gambar']; ?>" alt="<?= $data['judul']; ?>" width="100px"></td>
+                    <td><img src="image/<?= $data['gambar']; ?>" alt="<?= $data['judul']; ?>" width="100px"></td>
                     <td><?= $data['penulis'] ?></td>
                     <td><?= $data['penerbit'] ?></td>
                     <td><?= $data['tahun_terbit'] ?></td>
