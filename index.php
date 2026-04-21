@@ -44,7 +44,7 @@ if (!isset($_SESSION["user"])) {
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-book-open"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Perpus Digital<sup>15</sup></div>
+                <div class="sidebar-brand-text mx-3">Perpus Digital<sup>6</sup></div>
             </a>
 
             <!-- Divider -->
