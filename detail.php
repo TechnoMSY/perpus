@@ -11,7 +11,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $id = intval($_GET['id']);
 
 // Query detail buku
-$query = "SELECT * FROM books WHERE id = ?";
+$query = "SELECT * FROM buku WHERE id_buku = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -22,7 +22,7 @@ if ($result->num_rows === 0) {
     exit;
 }
 
-$book = $result->fetch_assoc();
+$buku = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -30,9 +30,25 @@ $book = $result->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($book['title']); ?> - Perpustakaan</title>
+    <title><?php echo htmlspecialchars($buku['judul']); ?> - Perpustakaan</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; margin: 0 0 15px 0; }
+        @media (max-width: 600px) {
+            .book-detail {
+                flex-direction: column;
+                align-items: center;
+            }
+            .book-cover {
+                width: 100%;
+                max-width: 200px;
+            }
+            .book-info {
+                text-align: center;
+            }
+        }
+        p { color: #666; line-height: 1.6; margin: 10px 0; }
+        a { color: #007bff; }
         .container { max-width: 800px; margin: 0 auto; }
         .book-detail { display: flex; gap: 20px; }
         .book-cover { width: 200px; }
@@ -48,17 +64,17 @@ $book = $result->fetch_assoc();
         
         <div class="book-detail">
             <div class="book-cover">
-                <img src="<?php echo htmlspecialchars($book['cover']); ?>" alt="<?php echo htmlspecialchars($book['title']); ?>">
+                <img src="<?php echo htmlspecialchars($buku['gambar']); ?>" alt="<?php echo htmlspecialchars($buku['judul']); ?>">
             </div>
             
             <div class="book-info">
-                <h1><?php echo htmlspecialchars($book['title']); ?></h1>
-                <p><strong>Penulis:</strong> <?php echo htmlspecialchars($book['author']); ?></p>
-                <p><strong>Penerbit:</strong> <?php echo htmlspecialchars($book['publisher']); ?></p>
-                <p><strong>ISBN:</strong> <?php echo htmlspecialchars($book['isbn']); ?></p>
-                <p><strong>Tahun:</strong> <?php echo $book['year']; ?></p>
-                <p><strong>Deskripsi:</strong></p>
-                <p><?php echo nl2br(htmlspecialchars($book['description'])); ?></p>
+                <h1><?php echo htmlspecialchars($buku['judul']); ?></h1>
+                <p><strong>Penulis:</strong> <?php echo htmlspecialchars($buku['penulis']); ?></p>
+                <p><strong>Kategori:</strong> <?php echo htmlspecialchars($buku['kategori']); ?></p>
+                <p><strong>Penerbit:</strong> <?php echo htmlspecialchars($buku['penerbit']); ?></p>
+                <p><strong>ISBN:</strong> <?php echo htmlspecialchars($buku['isbn']); ?></p>
+                <p><strong>Tahun:</strong> <?php echo $buku['tahun_terbit']; ?></p>
+                <p><?php echo nl2br(htmlspecialchars($buku['sinopsis'])); ?></p>
                 
                 <a href="#" class="btn">Pinjam Buku</a>
             </div>

@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-$koneksi = mysqli_connect("localhost", "root", "", "perr");
+$koneksi = mysqli_connect("localhost", "root", "", "per");
 
 // chek koneksi
 if (mysqli_connect_errno()) {
