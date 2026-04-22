@@ -47,9 +47,27 @@
             </thead>
             <tbody>
                 <?php 
+                    $where = "1=1";
+                    
+                    if(!empty($_GET['judul'])) {
+                        $judul = mysqli_real_escape_string($koneksi, $_GET['judul']);
+                        $where .= " AND buku.judul LIKE '%$judul%'";
+                    }
+                    
+                    if(!empty($_GET['tahun'])) {
+                        $tahun = mysqli_real_escape_string($koneksi, $_GET['tahun']);
+                        $where .= " AND buku.tahun_terbit LIKE '%$tahun%'";
+                    }
+                    
+                    if(!empty($_GET['penulis'])) {
+                        $penulis = mysqli_real_escape_string($koneksi, $_GET['penulis']);
+                        $where .= " AND buku.penulis LIKE '%$penulis%'";
+                    }
+                    
                     $query = mysqli_query($koneksi, "SELECT buku.*, kategori.kategori AS nama_kategori 
                                  FROM buku 
-                                 JOIN kategori ON buku.id_kategori = kategori.id_kategori");
+                                 JOIN kategori ON buku.id_kategori = kategori.id_kategori
+                                 WHERE $where");
                     $no = 1;
                     while($data = mysqli_fetch_array($query)):
                  ?>

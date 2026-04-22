@@ -8,7 +8,7 @@
                     if(isset($_POST['submit'])) {
                         $kategori = strtolower($_POST['kategori']);
                         // mengecek data kategori
-                        $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE LOWER(kategori) = '$kategori'");
+                        $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE (kategori) = '$kategori'");
                         $check = mysqli_num_rows($cek);
                         if ($check > 0) {
                             echo "Data yang dimasukkan sama";

@@ -10,7 +10,7 @@
                     $dta = mysqli_fetch_assoc($dta_query);
                     if(isset($_POST['submit'])) {
                         $kategori = strtolower($_POST['kategori']);
-                        $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE LOWER(kategori)='$kategori' AND id_kategori != $id");
+                        $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE (kategori)='$kategori' AND id_kategori != $id");
                         $check = mysqli_num_rows($cek);
                         if ($check > 0 ) {
                             echo "Data yang dimasukkan sama";
