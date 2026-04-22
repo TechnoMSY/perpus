@@ -3,7 +3,7 @@
            
     <?php  if($_SESSION['user']['level'] !='peminjam') : ?>
         <div class="mb-3">
-            <a href="?page=buku_tambah_tes" class="btn btn-primary">Tambah Data</a>
+            <a href="?page=buku_tambah" class="btn btn-primary">Tambah Data</a>
         </div>   
      <?php endif;?>
 

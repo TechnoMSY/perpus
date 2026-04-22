@@ -1,58 +1,77 @@
 <div class="container-fluid">
-    <h2 class="mb-4 text-gray-800">Tambah Buku</h2>
+    <h2 class="mb-4 text-gray-800">Buku</h2>
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="" method="post">
                 <?php
-                if(isset($_POST['submit'])){
-                    // 1. Ambil data dari form
-                    $judul        = mysqli_real_escape_string($koneksi, $_POST['judul']);
-                    // Kita simpan ke variabel $id_kategori karena di database kolomnya id_kategori
-                    $kategori  = mysqli_real_escape_string($koneksi, $_POST['nama_kategori']);
-                    $penulis      = mysqli_real_escape_string($koneksi, $_POST['penulis']);
-                    $penerbit     = mysqli_real_escape_string($koneksi, $_POST['penerbit']);
-                    $tahun_terbit = mysqli_real_escape_string($koneksi, $_POST['tahun_terbit']);
-                    $isbn         = mysqli_real_escape_string($koneksi, $_POST['isbn']);
-                    $jumlah       = mysqli_real_escape_string($koneksi, $_POST['jumlah']);
-                    $sinopsis     = mysqli_real_escape_string($koneksi, $_POST['sinopsis']);
+                    if(isset($_POST['submit'])) {
+                        $buku = strtolower($_POST['judul']);
+                        $id_kategori = $_POST['id_kategori'];
+                        $penulis = $_POST['penulis'];
 
-                    // 2. Logika Gambar
-                    $gambar = '';
-                    if(isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0){
-                        $target_dir = "uploads/";
-                        if (!is_dir($target_dir)) mkdir($target_dir, 0777, true);
-                        $nama_file = time() . '_' . basename($_FILES["gambar"]["name"]);
-                        $target_file = $target_dir . $nama_file;
-                        if(move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)){
-                            $gambar = $nama_file;
+                        $cek = mysqli_query($koneksi, "SELECT * FROM buku WHERE LOWER(judul) = '$buku' AND id_kategori = '$id_kategori'");
+                        $check = mysqli_num_rows($cek);
+                        if ($check > 0) {
+                            echo "Data yang dimasukkan sama";
+                        } else {
+                            $query = mysqli_query($koneksi, "INSERT INTO buku(judul, id_kategori, jumlah) VALUES ('$buku', '$id_kategori', '1')");
+                            if($query) {
+                                echo "<script>alert('Data berhasil di tambahkan'); window.location='?page=buku';</script>";
+                            } else {
+                                echo '<script>alert("Error!! data gagal di tambahkan"); </script>';
+                            }
                         }
                     }
 
-                    // 3. QUERY INSERT (SESUAI GAMBAR 3)
-                    // Nama kolom disesuaikan: id_buku (auto), id_kategori, judul, penulis, penerbit, tahun_terbit, gambar, sinopsis, jumlah, isbn
-                    $query = mysqli_query($koneksi, "INSERT INTO buku (id_kategori, judul, penulis, penerbit, tahun_terbit, gambar, sinopsis, jumlah, isbn) 
-                              VALUES ('$id_kategori', '$judul', '$penulis', '$penerbit', '$tahun_terbit', '$gambar', '$sinopsis', '$jumlah', '$isbn')");
-
-                    if($query){
-                        echo "<script>alert('Data berhasil ditambahkan'); window.location='?page=buku';</script>";
-                    } else {
-                        echo "<div class='alert alert-danger'>Error: " . mysqli_error($koneksi) . "</div>";
-                    }
-                }
                 ?>
-
                 <div class="form-group mb-3">
-                    <label>Judul</label>
-                    <input type="text" name="judul" class="form-control" required>
+                    <label for="buku" class="font-weight-bold text-gray-800">Judul</label>
+                    <input type="text" name="judul" id="buku" class="form-control" placeholder="Masukkan judul buku" required>
                 </div>
 
                 <div class="form-group mb-3">
+                    <?php
+                        if(isset($_POST['submit'])) {
+                            $judul = mysqli_real_escape_string($koneksi, strtolower($_POST['judul']));
+                            $id_kategori = $_POST['id_kategori'];
+                            $penulis = mysqli_real_escape_string($koneksi, $_POST['penulis']);
+                            $penerbit = mysqli_real_escape_string($koneksi, $_POST['penerbit']);
+                            $tahun_terbit = $_POST['tahun_terbit'];
+                            $isbn = $_POST['isbn'];
+                            $jumlah = $_POST['jumlah'];
+                            $sinopsis = mysqli_real_escape_string($koneksi, $_POST['sinopsis']);
+
+                            // Handle file upload for gambar
+                            $gambar = '';
+                            if(isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
+                                $target_dir = "uploads/"; // Pastikan direktori ini ada dan writable
+                                $target_file = $target_dir . basename($_FILES["gambar"]["name"]);
+                                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                                // Validasi tipe file (opsional, tambahkan jika perlu)
+                                if(move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
+                                    $gambar = basename($_FILES["gambar"]["name"]);
+                                }
+                            }
+
+                            $cek = mysqli_query($koneksi, "SELECT * FROM buku WHERE LOWER(judul) = '$judul' AND id_kategori = '$id_kategori'");
+                            $check = mysqli_num_rows($cek);
+                            if ($check > 0) {
+                                echo "Data yang dimasukkan sama";
+                            } else {
+                                $query = mysqli_query($koneksi, "INSERT INTO buku(judul, id_kategori, penulis, penerbit, tahun_terbit, isbn, gambar, jumlah, sinopsis) VALUES ('$judul', '$id_kategori', '$penulis', '$penerbit', '$tahun_terbit', '$isbn', '$gambar', '$jumlah', '$sinopsis')");
+                                if($query) {
+                                    echo "<script>alert('Data berhasil di tambahkan'); window.location='?page=buku';</script>";
+                                } else {
+                                    echo '<script>alert("Error!! data gagal di tambahkan"); </script>';
+                                }
+                            }
+                        }
+                    ?>
                     <label>Kategori (Pilih ID Kategori)</label>
                     <select name="id_kategori" class="form-control" required>
                         <option value="">-- Pilih Kategori --</option>
                         <?php
-                        // Opsional: Mengambil kategori langsung dari tabel kategori agar user tidak ketik manual
                         $kat = mysqli_query($koneksi, "SELECT * FROM kategori");
                         while($k = mysqli_fetch_array($kat)){
                             echo "<option value='".$k['id_kategori']."'>".$k['kategori']."</option>";
@@ -101,6 +120,8 @@
                     <button type="reset" class="btn btn-secondary">Reset</button>
                     <a href="?page=buku" class="btn btn-danger">Kembali</a>
                 </div>
+
+
             </form>
         </div>
     </div>

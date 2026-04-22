@@ -6,11 +6,11 @@
             <form action="" method="post">
                 <?php
                     $id = $_GET['id'];
-                    $dta_query = mysqli_query($koneksi, "SELECT * FROM kategori WHERE id_kategori=$id");
+                    $dta_query = mysqli_query($koneksi, "SELECT * FROM buku WHERE id_kategori=$id");
                     $dta = mysqli_fetch_assoc($dta_query);
                     if(isset($_POST['submit'])) {
-                        $kategori = strtolower($_POST['kategori']);
-                        $cek = mysqli_query($koneksi, "SELECT * FROM kategori WHERE LOWER(kategori)='$kategori' AND id_kategori != $id");
+                        $buku = strtolower($_POST['buku']);
+                        $cek = mysqli_query($koneksi, "SELECT * FROM buku WHERE LOWER(buku)='$kategori' AND id_kategori != $id");
                         $check = mysqli_num_rows($cek);
                         if ($check > 0 ) {
                             echo "Data yang dimasukkan sama";
@@ -67,7 +67,7 @@
                 <div class="form-group mb-0">
                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Simpan</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>
-                    <a href="?page=kategori" class="btn btn-danger">Kembali</a>
+                    <a href="?page=buku" class="btn btn-danger">Kembali</a>
                 </div>
             </form>
         </div>
