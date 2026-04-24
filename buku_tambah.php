@@ -12,19 +12,20 @@
                     $tahun_terbit = $_POST['tahun_terbit'];
                     $isbn = $_POST['isbn'];
                     $jumlah = $_POST['jumlah'];
+                    $gambar = $_POST['gambar'];
                     $sinopsis = mysqli_real_escape_string($koneksi, $_POST['sinopsis']);
 
                     // Handle file upload for gambar
-                    $gambar = '';
-                    if(isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
-                        $target_dir = "uploads/"; // Pastikan direktori ini ada dan writable
-                        $target_file = $target_dir . basename($_FILES["gambar"]["name"]);
-                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                        // Validasi tipe file (opsional, tambahkan jika perlu)
-                        if(move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-                            $gambar = basename($_FILES["gambar"]["name"]);
-                        }
-                    }
+                    // $gambar = '';
+                    // if(isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
+                    //     $target_dir = "uploads/"; // Pastikan direktori ini ada dan writable
+                    //     $target_file = $target_dir . basename($_FILES["gambar"]["name"]);
+                    //     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                    //     // Validasi tipe file (opsional, tambahkan jika perlu)
+                    //     if(move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
+                    //         $gambar = basename($_FILES["gambar"]["name"]);
+                    //     }
+                    // }
 
                     $cek = mysqli_query($koneksi, "SELECT * FROM buku WHERE LOWER(judul) = '$judul' AND id_kategori = '$id_kategori'");
                     $check = mysqli_num_rows($cek);

@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-4 text-center">
                 <?php if($dta['gambar']): ?>
-                    <img src="uploads/<?= $dta['gambar']; ?>" alt="Gambar Buku" class="img-fluid rounded">
+                    <img src="uploads/<?= $dta['gambar']; ?>" width="500" alt="Gambar Buku" class="img-fluid rounded">
                 <?php else: ?>
                     <div class="bg-light p-4 rounded">
                         <p class="text-muted">No image available</p>
